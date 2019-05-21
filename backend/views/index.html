@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+   
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  
+    <script type='text/javascript'>
+        window.onload = async () => {  
+            const tourists = await fetch('http://localhost:3000/tourists/list')
+                .then(res => res.json())
+            
+            tourists.forEach((t) => {
+                el = document.createElement('li');
+                el.innerHTML = '<button class="tourist" id="'+t._id+'">'+t.name+' '+t.lastname+'</button> <a href="http://localhost:3000/tourists/delete/'+t._id+'"style="color:red">x</a>';
+                document.getElementById('list').appendChild(el);
+            });
+
+            $(".tourist").click( async (e) => {
+                const t_id = e.target.id;
+
+                const flights = await fetch('http://localhost:3000/flights/list')
+                    .then(res => res.json())
+                
+                $('#list li').remove();
+                (tourists.find(tourist => {
+                    return tourist._id == t_id;
+                })).flights.forEach((t_f) => {
+                    flights.find(f => {
+                        return 
+                    });
+                    el = document.createElement('li');
+                    el.innerHTML = t_f.departure+' '+t_f.arrival;
+                    document.getElementById('list').appendChild(el);
+                });
+
+                flights.forEach((f) => {
+                    el = document.createElement('li');
+                    el.innerHTML = '<a href="http://localhost:3000/flights/add/'+f._id+'/'+t_id+'"style="color:red">'+f.departure+' '+f.arrival+'</a>';
+                    document.getElementById('list2').appendChild(el);
+                });
+            }); 
+        }
+    </script>
+</head>
+<body>
+    <a href="./create_tourist.html">create_tourist</a>
+    <h1>Tourists' List</h1>
+    <ul id="list"></ul>
+    <ul id="list2"></ul>
+</body>
+</html>
