@@ -1,5 +1,5 @@
-# loty
-System rezerwacji lotów turystycznych w kosmos
+# Space Flights
+Space filghts reservations' system
 
 - frontend written in React.js
 - backend written in Node.js + Express
